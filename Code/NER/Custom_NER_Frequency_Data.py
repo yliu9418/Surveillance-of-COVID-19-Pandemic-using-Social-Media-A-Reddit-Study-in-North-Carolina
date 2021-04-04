@@ -46,7 +46,6 @@ def lemme_sentences(sentence):
 
 def getEntLabel_Data(sName):
     df = pd.read_csv(os.getcwd() + r'\NER_Results\%s.csv'%sName, encoding = 'utf-8')
-    df['Entity Name'] =  df['Entity Name'].apply(tokenize_sentences).astype('U').values
     df['Entity Name'] =  df['Entity Name'].apply(lemme_sentences).astype('U').values
     df1= df.groupby(['Entity Name','Entity Label'])['Entity Name'].count().to_frame(name = '# of Entities').reset_index()
     total = df1['# of Entities'].sum()
