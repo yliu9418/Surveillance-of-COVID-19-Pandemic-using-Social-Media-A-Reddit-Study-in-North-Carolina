@@ -3,7 +3,7 @@
 
 import pandas as pd
 import os
-from nltk.corpus import wordnet as wn
+from nltk.corpus import wordnet
 from nltk.stem import WordNetLemmatizer
 from nltk import sent_tokenize, pos_tag
 from nltk.tokenize import word_tokenize
@@ -30,15 +30,19 @@ def get_wordnet_pos(treebank_tag):
     else:
         return None # makes if-statement more simple
 
-def lemme_sentences(sentence)  
+def lemme_sentences(sentence):
     lemmatizer = WordNetLemmatizer()
-    tagged = nltk.pos_tag(tokens)
+    lemme_tokens = []
+    tagged = pos_tag(sentence.split())
+    print(tagged)
     for word, tag in tagged:
         wntag = get_wordnet_pos(tag)
-        if wntag is None:# Doesn't supply tag in case of None
+        if wntag is None:# not supply tag in case of None
             lemma = lemmatizer.lemmatize(word) 
         else:
             lemma = lemmatizer.lemmatize(word, pos=wntag)
+        lemme_tokens.append(lemma)
+    return ' '.join(lemme_tokens)
 
 def getEntLabel_Data(sName):
     df = pd.read_csv(os.getcwd() + r'\NER_Results\%s.csv'%sName, encoding = 'utf-8')
