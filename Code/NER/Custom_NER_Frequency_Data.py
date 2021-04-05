@@ -37,7 +37,7 @@ def lemme_sentences(sentence):
     print(tagged)
     for word, tag in tagged:
         wntag = get_wordnet_pos(tag)
-        if wntag is None:# not supply tag in case of None
+        if wntag is None:# no tag supplied in the case of None
             lemma = lemmatizer.lemmatize(word) 
         else:
             lemma = lemmatizer.lemmatize(word, pos=wntag)
